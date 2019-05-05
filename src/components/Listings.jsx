@@ -22,10 +22,13 @@ class Listings extends Component{
       listings:[],
       filter:"adventure",
       page_limit:20,
-      page_offset:0
+      page_offset:0,
+      search:""
     };
     this.searchAPI = this.searchAPI.bind(this);
     this.getAPI = this.getAPI.bind(this);
+    this.getMore = this.getMore.bind(this);
+    this.inputChange = this.inputChange.bind(this);
   }
 
   getAPI(params) {
@@ -55,28 +58,57 @@ class Listings extends Component{
    this.getAPI(params)
   }
 
-  searchAPI(query) {
-    var { page_limit, page_offset, filter } = this.state;
+  searchAPI() {
+    var { page_limit, page_offset, filter, search } = this.state;
     let params = {
       "filter[genres]":filter,
       //"fields[anime]":fields.join(','),
-      "page[limit]":page_limit,
-      "page[offset]":page_offset,
-      "filter[text]":query
+      "page[limit]":20,
+      "page[offset]":0,
+      "filter[text]":search
     };
     this.getAPI(params);
+    this.setState({
+      page_offset:0
+    });
+  }
+
+  getMore() {
+    var { page_limit, page_offset, filter, search } = this.state;
+    let params = {
+      "filter[genres]":filter,
+      //"fields[anime]":fields.join(','),
+      "page[limit]":20,
+      "page[offset]":page_offset+20,
+      "filter[text]":search
+    };
+    this.getAPI(params);
+    this.setState({
+      page_offset:page_limit+20
+    });
+  }
+
+  inputChange(e) {
+    this.setState({
+      search: e.target.value
+    });
   }
 
   render(){
     var { listings, search } = this.state;
     return(
       <div>
-        <Search searchAPI={this.searchAPI}/>
+        <Search
+          searchAPI={this.searchAPI}
+          inputChange={this.inputChange}
+          search={search}
+        />
         <Listing>
           {listings.length > 0?listings.map((anime, i) => {
             return  <AnimeContainer key={i} anime={anime}/>
           }):"LOADER"}
         </Listing>
+        <p onClick={this.getMore}>more...</p>
       </div>
     );
   }
