@@ -16,14 +16,13 @@ class AnimeContainer extends Component{
         <Img data-tip data-for={anime.id} src={anime.attributes.posterImage.small} />
         <ReactTooltip
           id={anime.id}
-          multiline={true}
-          data-multiline={true}
-          html={true}
           place="right"
+          effect="solid"
+          type="dark"
          >
-         {`${anime.attributes.canonicalTitle}
+         <span>{anime.attributes.canonicalTitle}</span>
          <br />
-         ${anime.attributes.synopsis}`}
+         <span>{anime.attributes.synopsis}</span>
         </ReactTooltip>
       </div>
     );
