@@ -3,6 +3,7 @@ import axios from 'axios';
 import AnimeContainer from "./AnimeContainer.jsx";
 import styled from 'styled-components';
 import Search from "./Search.jsx";
+import { Router, Link } from "@reach/router";
 
 
 let url = 'https://kitsu.io/api/edge/anime';
@@ -98,6 +99,7 @@ class Listings extends Component{
     var { listings, search } = this.state;
     return(
       <div>
+        <Link to="/login">Login</Link>
         <Search
           searchAPI={this.searchAPI}
           inputChange={this.inputChange}
