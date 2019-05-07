@@ -30,7 +30,10 @@ class Listings extends Component{
     this.getAPI = this.getAPI.bind(this);
     this.getMore = this.getMore.bind(this);
     this.inputChange = this.inputChange.bind(this);
+
   }
+
+
 
   getAPI(params) {
     axios({

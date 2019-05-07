@@ -11,6 +11,21 @@ const Container = styled.div`
 `;
 
 class App extends Component{
+  constructor(props) {
+    super(props);
+    this.state = {
+      loggedIn:false,
+      user:{}
+    }
+    this.getUser = this.getUser.bind(this);
+  }
+
+  getUser(user){
+    this.setState({
+      loggedIn:true,
+      user
+    })
+  }
   render(){
     return(
       <Container className="App">
@@ -18,7 +33,7 @@ class App extends Component{
         <h1> Hello, World! </h1>
         <Router>
           <Listings path="/" />
-          <Login path="/login" />
+          <Login getUser={this.getUser} path="/login" />
         </Router>
       </Container>
     );
