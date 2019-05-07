@@ -7,6 +7,7 @@ import Login from './Login.jsx';
 
 const Container = styled.div`
   background-color: #403544;
+  min-height: 1000px;
 `;
 const Navbar = styled.div`
   padding: 1%;

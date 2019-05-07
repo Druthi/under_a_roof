@@ -60,7 +60,7 @@ class AnimeContainer extends Component{
         </ReactTooltip>
         {loggedIn?!ids.includes(anime.id)?<Button color='#1f1021d6' onClick={() => {addToList(anime)} }>
           ADD TO LIST
-        </Button>:<Button color=' #149b14d1'>ADDED</Button>:null}
+        </Button>:<Button color='#61c461'>ADDED</Button>:null}
       </AnimeContainerDiv>
     );
   }

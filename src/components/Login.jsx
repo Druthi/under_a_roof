@@ -3,6 +3,13 @@ import React, { Component} from "react";
 import FacebookLogin from 'react-facebook-login';
 import { navigate } from '@reach/router';
 import axios from 'axios';
+import styled from 'styled-components';
+
+const Container = styled.div`
+padding: 16%;
+text-align: center;
+`;
+
 class Login extends Component{
   constructor(props) {
     super(props);
@@ -34,14 +41,14 @@ class Login extends Component{
   }
   render(){
     return(
-      <div>
+      <Container>
         <FacebookLogin
           appId="2172293116219003"
           fields="name,email,picture"
           icon="fa-facebook"
           callback={this.loginToFacebook}
         />
-      </div>
+      </Container>
     );
   }
 }
