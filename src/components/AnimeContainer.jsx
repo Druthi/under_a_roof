@@ -13,11 +13,24 @@ const Img = styled.img`
     opacity: 0.6;
   }
 `;
+const Content = styled.span`
+  font-family: monospace;
+`;
+const Popularity = styled.span`
+  margin-left:20px;
+  font-size:18px;
+  font-weight:10px;
+`;
+const Title = styled.span`
+  font-size:18px;
+  font-weight:10px;
+  font-family: monospace;
+  padding-botton:20px;
+`;
 const AnimeContainerDiv = styled.div`
   position:relative;
 `;
 const Button = styled.button`
-
   outline: none;
   left: 13%;
   position: absolute;
@@ -54,9 +67,10 @@ class AnimeContainer extends Component{
           effect="solid"
           type="dark"
          >
-         <span>{anime.attributes.canonicalTitle}</span>
+         <Title>{anime.attributes.canonicalTitle}</Title>
+         <Popularity><i class="fa fa-heart" style={{color:"red"}} aria-hidden="true"></i>  #{anime.attributes.popularityRank}</Popularity>
          <br />
-         <span>{anime.attributes.synopsis}</span>
+         <Content>{anime.attributes.synopsis}</Content>
         </ReactTooltip>
         {loggedIn?!ids.includes(anime.id)?<Button color='#1f1021d6' onClick={() => {addToList(anime)} }>
           ADD TO LIST

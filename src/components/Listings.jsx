@@ -46,7 +46,8 @@ class Listings extends Component{
       filter:"adventure",
       page_limit:20,
       page_offset:0,
-      search:""
+      search:"",
+      loader:false
     };
     this.searchAPI = this.searchAPI.bind(this);
     this.getAPI = this.getAPI.bind(this);
@@ -55,6 +56,9 @@ class Listings extends Component{
   }
 
   getAPI(params) {
+    this.setState({
+      loader:true
+    });
     axios({
       method:'get',
       url,
@@ -64,7 +68,8 @@ class Listings extends Component{
     })
       .then((response)=> {
         this.setState({
-          listings:response.data.data
+          listings:response.data.data,
+          loader:false
         })
       });
   }
@@ -118,7 +123,7 @@ class Listings extends Component{
 
 
   render(){
-    var { listings, search } = this.state;
+    var { listings, search, loader } = this.state;
     return(
       <div>
         <Search
@@ -127,7 +132,7 @@ class Listings extends Component{
           search={search}
         />
         <Listing>
-          {listings.length > 0?listings.map((anime, i) => {
+          {!loader?listings.map((anime, i) => {
             return  <AnimeContainer user={this.props.user} loggedIn={this.props.loggedIn} key={i} anime={anime} addToList={this.props.addToList} />
           }):<Loader></Loader>}
         </Listing>

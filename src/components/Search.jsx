@@ -10,13 +10,17 @@ const Input = styled.input`
 
 const Button = styled.button`
   outline: none;
-  padding: 12px;
+  padding: 11px;
   border: black;
   width: 11%;
   background-color: black;
   color: #f7f7f7;
   font-size: 12px;
   font-family: monospace;
+  cursor:pointer;
+  :hover{
+    background-color: #00000057;
+  }
 `;
 
 const Container = styled.div`
