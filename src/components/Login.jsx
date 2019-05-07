@@ -1,6 +1,7 @@
 
 import React, { Component} from "react";
 import FacebookLogin from 'react-facebook-login';
+import { navigate } from '@reach/router';
 import axios from 'axios';
 class Login extends Component{
   constructor(props) {
@@ -27,7 +28,7 @@ class Login extends Component{
     })
       .then((response)=> {
         this.props.getUser(response.data);
-
+        navigate(`/`)
       });
 
   }

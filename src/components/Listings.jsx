@@ -9,11 +9,33 @@ import { Router, Link } from "@reach/router";
 let url = 'https://kitsu.io/api/edge/anime';
 let fields = ["ageRating", "canonicalTitle", "posterImage" , "synopsis", "id", "slug"]
 
+const More = styled.p`
+  color:white;
+`;
+
 const Listing = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin: 4% 7%;
   justify-content:space-around;
+  width: 68%;
+  background-color: #f7f7f7;
+  padding: 2% 1%;
+  margin-left: 15%;
+  height:100%;
+`;
+
+const Loader = styled.div`
+  border: 6px solid #f7f7f7;
+  border-top: 6px solid #575e63;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 2s linear infinite;
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 `;
 
 class Listings extends Component{
@@ -30,10 +52,7 @@ class Listings extends Component{
     this.getAPI = this.getAPI.bind(this);
     this.getMore = this.getMore.bind(this);
     this.inputChange = this.inputChange.bind(this);
-
   }
-
-
 
   getAPI(params) {
     axios({
@@ -50,23 +69,22 @@ class Listings extends Component{
       });
   }
 
-
   componentDidMount() {
-    var { page_limit, page_offset, filter } = this.state;
+    var { page_limit, page_offset, filter, listings } = this.state;
     let params = {
       "filter[genres]":filter,
-      //"fields[anime]":fields.join(','),
       "page[limit]":page_limit,
       "page[offset]":page_offset
     };
-   this.getAPI(params)
+    if(listings.length === 0) {
+      this.getAPI(params)
+    }
   }
 
   searchAPI() {
     var { page_limit, page_offset, filter, search } = this.state;
     let params = {
       "filter[genres]":filter,
-      //"fields[anime]":fields.join(','),
       "page[limit]":20,
       "page[offset]":0,
       "filter[text]":search
@@ -81,7 +99,6 @@ class Listings extends Component{
     var { page_limit, page_offset, filter, search } = this.state;
     let params = {
       "filter[genres]":filter,
-      //"fields[anime]":fields.join(','),
       "page[limit]":20,
       "page[offset]":page_offset+20,
       "filter[text]":search
@@ -98,11 +115,12 @@ class Listings extends Component{
     });
   }
 
+
+
   render(){
     var { listings, search } = this.state;
     return(
       <div>
-        <Link to="/login">Login</Link>
         <Search
           searchAPI={this.searchAPI}
           inputChange={this.inputChange}
@@ -110,10 +128,10 @@ class Listings extends Component{
         />
         <Listing>
           {listings.length > 0?listings.map((anime, i) => {
-            return  <AnimeContainer key={i} anime={anime}/>
-          }):"LOADER"}
+            return  <AnimeContainer user={this.props.user} loggedIn={this.props.loggedIn} key={i} anime={anime} addToList={this.props.addToList} />
+          }):<Loader></Loader>}
         </Listing>
-        <p onClick={this.getMore}>more...</p>
+        <More onClick={this.getMore}>more...</More>
       </div>
     );
   }

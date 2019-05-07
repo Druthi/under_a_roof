@@ -8,7 +8,7 @@ var bodyParser = require('body-parser')
 
 app.use(morgan());
 app.use(bodyParser());
-app.use(express.static(__dirname + '/../public'));
+app.use('/login', express.static(__dirname + '/../public'));
 
 app.post('/addUser', async (req, res) => {
   let {name, profile_picture} = req.body;
